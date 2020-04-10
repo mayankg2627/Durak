@@ -37,7 +37,7 @@ namespace DurakForm
             InitializeComponent();
             // Create instance of MyGame Object
             MyGame = new Game(2, aDeckSize, aPlayerName);
-            // Allow the Player to Start the attck
+            // Allow the Player to Start the attack
             MyGame.Players[0].Status = GameStatus.Attacking;
             MyGame.Players[0].IsThrowing = true;
             MyGame.Players[1].Status = GameStatus.Defending;
@@ -138,8 +138,7 @@ namespace DurakForm
                     CardImage = Properties.Resources.ResourceManager.GetObject(MyGame.Players[0].PlayerHand.PlayerHandDeck[i].CardImage) as Image
                 };
 
-                //if (!lCard.FaceUp)
-                // lCard.TurnOver();
+                
                 // click event for the current card
                 lCard.Click += Card_Click;
                 // mouse enter event
@@ -270,7 +269,7 @@ namespace DurakForm
                 //card.TurnOver();
 
                 // Update the AIPlayer, Player and River Panel
-                UpdateCardPanels();
+                //UpdateCardPanels();
 
                 // Call the AIPlayer to make its move
                 AIPlay();
@@ -282,10 +281,18 @@ namespace DurakForm
                 MyGame.Players[0].IsThrowing = false;
                 // Set AIPlayer throwing to true to start its turn
                 MyGame.Players[1].IsThrowing = true;
-                //if (MyGame.Players[1].Status == GameStatus.Won || MyGame.Players[0].Status == GameStatus.Won)
-                //{
-                //    break;
-                //}
+                if (MyGame.Players[1].Status == GameStatus.Won || MyGame.Players[0].Status == GameStatus.Won)
+                {
+                    if (MyGame.Players[0].Status == GameStatus.Won)
+                    {
+                        WinMessage();
+                    }
+                    else if (MyGame.Players[1].Status == GameStatus.Won)
+
+                    {
+                        LoseMessage();
+                    }
+                }
             }
 
 
@@ -392,10 +399,9 @@ namespace DurakForm
         /// </summary>
         public void WinMessage()
         {
-          
-                MessageBox.Show("You Won! Press OK to Exit.", "Game Won");
-                MyGame.Players[0].Status = GameStatus.Won;
-                Application.Exit();
+            MyGame.Players[1].Status = GameStatus.Lost;
+            MessageBox.Show("You Won! Press OK to Exit.", "Game Won");     
+            this.Close();
             
         }
         /// <summary>
@@ -403,9 +409,9 @@ namespace DurakForm
         /// </summary>
         public void LoseMessage()
         {
-                MessageBox.Show("You Lost! Press OK to Exit.", "Game Lost");
-                MyGame.Players[1].Status = GameStatus.Won;
-                Application.Exit();
+            MyGame.Players[0].Status = GameStatus.Lost;
+            MessageBox.Show("You Lost! Press OK to Exit.", "Game Lost");
+            this.Close();
             
         }
         /// <summary>
@@ -413,96 +419,103 @@ namespace DurakForm
         /// </summary>
         private void UpdateCardPanels()
         {
+            UpdateRiverPanel();
             UpdatePlayerPanel();
             UpdateAIPanel();
-            UpdateRiverPanel();
+            
+            //Thread.Sleep(1000);
             UpdatePlayerNameLabels();
         }
 
         /// <summary>
         /// AIPlayer Attack or Defends the Card
         /// </summary>
-        private void AIPlay()
+        private async void AIPlay()
         {
-            // if AiPlayer is throwing and has atleast one card
-            if (MyGame.Players[1].IsThrowing == true && MyGame.Players[1].PlayerHand.NumberOfCardsRemaining != 0)
+            await Task.Run(() =>
             {
-                // if Player is defending
-                if (MyGame.Players[1].Status == GameStatus.Defending && MyGame.River.NumberOfCards > 0)
+                // if AiPlayer is throwing and has atleast one card
+                if (MyGame.Players[1].IsThrowing == true && MyGame.Players[1].PlayerHand.NumberOfCardsRemaining != 0)
                 {
-                    // try to defend the last card in the river
-                    MyGame.Players[1].Defend(MyGame);
-                    if (MyGame.River.NumberOfCards != 0)
-                    {
-                        MyGame.Players[0].IsThrowing = true;
-                        MyGame.Players[1].IsThrowing = false;
-                    }
-                    else
-                    {
-                        AIPlay();
-                    }
-
-                }
-                // if Player is attacking
-                else if (MyGame.Players[1].Status == GameStatus.Attacking)
-                {
-                    // Player is starting the new attack
-                    if (MyGame.River.NumberOfCards == 0)
-                    {
-                        MyGame.Players[1].Attack(MyGame);
-                    }
-                    // Player is defending the card when there is atleast one card in river
-                    else
+                    // if Player is defending
+                    if (MyGame.Players[1].Status == GameStatus.Defending && MyGame.River.NumberOfCards > 0)
                     {
                         // try to defend the last card in the river
                         MyGame.Players[1].Defend(MyGame);
+                        if (MyGame.River.NumberOfCards != 0)
+                        {
+                            MyGame.Players[0].IsThrowing = true;
+                            MyGame.Players[1].IsThrowing = false;
+                        }
+                        else
+                        {
+                            AIPlay();
+                        }
+
                     }
-                    if (MyGame.River.NumberOfCards != 0)
+                    // if Player is attacking
+                    else if (MyGame.Players[1].Status == GameStatus.Attacking)
                     {
-                        MyGame.Players[0].IsThrowing = true;
-                        MyGame.Players[1].IsThrowing = false;
+                        // Player is starting the new attack
+                        if (MyGame.River.NumberOfCards == 0)
+                        {
+                            MyGame.Players[1].Attack(MyGame);
+                        }
+                        // Player is defending the card when there is atleast one card in river
+                        else
+                        {
+                            // try to defend the last card in the river
+                            MyGame.Players[1].Defend(MyGame);
+                        }
+                        if (MyGame.River.NumberOfCards != 0)
+                        {
+                            MyGame.Players[0].IsThrowing = true;
+                            MyGame.Players[1].IsThrowing = false;
+                        }
+                        else
+                        {
+                            AIPlay();
+                        }
                     }
-                    else
-                    {
-                        AIPlay();
-                    }
+                    // Update the AIPlayer, Player and River Panel
+                    //UpdateCardPanels();
+                    // until here player must be done by the move
+
+                    // Compare the cards whether the defend is successful or not
+                    CompareRiverCards(MyGame.Players[1]);
+
                 }
-                // Update the AIPlayer, Player and River Panel
-                UpdateCardPanels();
-                // until here player must be done by the move
-
-                // Compare the cards whether the defend is successful or not
-                CompareRiverCards(MyGame.Players[1]);
-
-            }
-            // else check if AiPlayer won the game if there is no card left in the deck
-            else
-            {
-                MyGame.EndTurn();
-                // Set AIPlayer throwing to false to finish its turn
-                MyGame.Players[1].IsThrowing = false;
-                // Set Player throwing to true to start its turn
-                MyGame.Players[0].IsThrowing = true;
-                // TODO: Call the winning or losing MessageBox
-                if (MyGame.Players[1].Status == GameStatus.Won || MyGame.Players[0].Status == GameStatus.Won)
+                // else check if AiPlayer won the game if there is no card left in the deck
+                else
                 {
-                    if (MyGame.Players[0].Status == GameStatus.Won)
+                    MyGame.EndTurn();
+                    // Set AIPlayer throwing to false to finish its turn
+                    MyGame.Players[1].IsThrowing = false;
+                    // Set Player throwing to true to start its turn
+                    MyGame.Players[0].IsThrowing = true;
+                    // TODO: Call the winning or losing MessageBox
+                    if (MyGame.Players[1].Status == GameStatus.Won || MyGame.Players[0].Status == GameStatus.Won)
                     {
-                        WinMessage();
-                    }
-                    else if (MyGame.Players[1].Status == GameStatus.Won)
+                        if (MyGame.Players[0].Status == GameStatus.Won)
+                        {
+                            WinMessage();
+                        }
+                        else if (MyGame.Players[1].Status == GameStatus.Won)
 
-                    {
-                        LoseMessage();
+                        {
+                            LoseMessage();
+                        }
                     }
                 }
-            }
+            });
+            
         }
         /// <summary>
         /// Compare the Last two card in the river
         /// </summary>
         private void CompareRiverCards(Player aPLayer)
         {
+            UpdateCardPanels();
             // If there is more than one card in river to compare cards
             if (MyGame.River.NumberOfCards > 1)
             {
@@ -564,17 +577,11 @@ namespace DurakForm
                             LoseMessage();
                         }
                     }
-
-
-
-
                 }
-
-
+                UpdateCardPanels();
+                UpdateDeckImages();
             }
-
-            UpdateCardPanels();
-            UpdateDeckImages();
+            
         }
 
 
@@ -625,6 +632,7 @@ namespace DurakForm
                 {
                     // Align the current card
                     panelHand.Controls[index].Top = POP;
+                    
                     panelHand.Controls[index].Left = panelHand.Controls[index + 1].Left + offset;
                 }
             }

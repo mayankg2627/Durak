@@ -29,7 +29,7 @@ namespace DurakSrcLibrary
         {
             Card lCard = new Card();
             Console.WriteLine("Thinking during Attack........");
-            Thread.Sleep(1000);
+            Thread.Sleep(1500);
 
             // If AiPlayer has Ace in Hand, logic to attack with the lowest card except Ace
             if (fPlayerHand.PlayerHandDeck.Exists(x => x.CardRankProperty == CardRank.Ace) && fPlayerHand.HandCount() >= 1)
@@ -73,7 +73,7 @@ namespace DurakSrcLibrary
         public override void Defend(Game aGame)
         {
             Console.WriteLine("Thinking during defend........");
-            Thread.Sleep(1000);
+            Thread.Sleep(1500);
             Card lCard = new Card();
             int lIndex = aGame.River.NumberOfCards - 1;
             CardSuit lCardSuit = aGame.River.RiverCards[lIndex].CardSuitProperty;

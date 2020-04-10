@@ -30,3 +30,13 @@ D:\dc data\sem4\oops3\new\Durak (2)\Durak\DurakForm\CardBox\obj\Debug\CardBox.cs
 D:\dc data\sem4\oops3\new\Durak (2)\Durak\DurakForm\CardBox\obj\Debug\CardBox.csproj.CopyComplete
 D:\dc data\sem4\oops3\new\Durak (2)\Durak\DurakForm\CardBox\obj\Debug\CardBox.dll
 D:\dc data\sem4\oops3\new\Durak (2)\Durak\DurakForm\CardBox\obj\Debug\CardBox.pdb
+D:\dc data\sem4\oops3\OOPSpROJECT\Durak\DurakForm\CardBox\bin\Debug\CardBox.dll
+D:\dc data\sem4\oops3\OOPSpROJECT\Durak\DurakForm\CardBox\bin\Debug\CardBox.pdb
+D:\dc data\sem4\oops3\OOPSpROJECT\Durak\DurakForm\CardBox\bin\Debug\DurakSrcLibrary.dll
+D:\dc data\sem4\oops3\OOPSpROJECT\Durak\DurakForm\CardBox\bin\Debug\DurakSrcLibrary.pdb
+D:\dc data\sem4\oops3\OOPSpROJECT\Durak\DurakForm\CardBox\obj\Debug\CardBox.csprojAssemblyReference.cache
+D:\dc data\sem4\oops3\OOPSpROJECT\Durak\DurakForm\CardBox\obj\Debug\CardBox.ImageCardBox.resources
+D:\dc data\sem4\oops3\OOPSpROJECT\Durak\DurakForm\CardBox\obj\Debug\CardBox.csproj.GenerateResource.cache
+D:\dc data\sem4\oops3\OOPSpROJECT\Durak\DurakForm\CardBox\obj\Debug\CardBox.csproj.CopyComplete
+D:\dc data\sem4\oops3\OOPSpROJECT\Durak\DurakForm\CardBox\obj\Debug\CardBox.dll
+D:\dc data\sem4\oops3\OOPSpROJECT\Durak\DurakForm\CardBox\obj\Debug\CardBox.pdb

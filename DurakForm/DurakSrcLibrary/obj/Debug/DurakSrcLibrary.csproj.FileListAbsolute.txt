@@ -14,3 +14,8 @@ D:\dc data\sem4\oops3\new\Durak (2)\Durak\DurakForm\DurakSrcLibrary\bin\Debug\Du
 D:\dc data\sem4\oops3\new\Durak (2)\Durak\DurakForm\DurakSrcLibrary\bin\Debug\DurakSrcLibrary.pdb
 D:\dc data\sem4\oops3\new\Durak (2)\Durak\DurakForm\DurakSrcLibrary\obj\Debug\DurakSrcLibrary.dll
 D:\dc data\sem4\oops3\new\Durak (2)\Durak\DurakForm\DurakSrcLibrary\obj\Debug\DurakSrcLibrary.pdb
+D:\dc data\sem4\oops3\OOPSpROJECT\Durak\DurakForm\DurakSrcLibrary\bin\Debug\DurakSrcLibrary.dll
+D:\dc data\sem4\oops3\OOPSpROJECT\Durak\DurakForm\DurakSrcLibrary\bin\Debug\DurakSrcLibrary.pdb
+D:\dc data\sem4\oops3\OOPSpROJECT\Durak\DurakForm\DurakSrcLibrary\obj\Debug\DurakSrcLibrary.csprojAssemblyReference.cache
+D:\dc data\sem4\oops3\OOPSpROJECT\Durak\DurakForm\DurakSrcLibrary\obj\Debug\DurakSrcLibrary.dll
+D:\dc data\sem4\oops3\OOPSpROJECT\Durak\DurakForm\DurakSrcLibrary\obj\Debug\DurakSrcLibrary.pdb
