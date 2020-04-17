@@ -430,10 +430,9 @@ namespace DurakForm
         /// <summary>
         /// AIPlayer Attack or Defends the Card
         /// </summary>
-        private async void AIPlay()
+        private  void AIPlay()
         {
-            await Task.Run(() =>
-            {
+           
                 // if AiPlayer is throwing and has atleast one card
                 if (MyGame.Players[1].IsThrowing == true && MyGame.Players[1].PlayerHand.NumberOfCardsRemaining != 0)
                 {
@@ -507,7 +506,7 @@ namespace DurakForm
                         }
                     }
                 }
-            });
+           
             
         }
         /// <summary>
